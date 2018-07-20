@@ -68,6 +68,10 @@ RUN apt-get update \
     && add-apt-repository --yes "ppa:git-core/ppa" \
     && apt-get update \
     && apt-get install --yes "git=1:2.18.*" \
+    # Install Tig 2.2 (https://launchpad.net/~aguignard/+archive/ubuntu/ppa)
+    && add-apt-repository --yes "ppa:aguignard/ppa" \
+    && apt-get update \
+    && apt-get install --yes "tig=2.2-*" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
