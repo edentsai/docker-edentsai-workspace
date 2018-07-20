@@ -2,6 +2,7 @@ IMAGE_NAME    ?= edentsai/edentsai-workspace
 IMAGE_VERSION ?= latest
 IMAGE_EXISTS  := $(shell docker image ls --quiet --filter "reference=$(IMAGE_NAME):$(IMAGE_VERSION)" | wc -l)
 
+TIMEZONE ?= Asia/Taipei
 USERNAME ?= $(shell whoami)
 PASSWORD ?= secret
 PUID     ?= 1000
@@ -16,6 +17,7 @@ all: docker-build
 docker-build:
 	docker build --force-rm \
 		--tag "$(IMAGE_NAME):$(IMAGE_VERSION)" \
+		--build-arg "TIMEZONE=${TIMEZONE}" \
 		--build-arg "USERNAME=${USERNAME}" \
 		--build-arg "PASSWORD=${PASSWORD}" \
 		--build-arg "PUID=${PUID}" \

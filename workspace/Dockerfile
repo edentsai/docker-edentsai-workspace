@@ -173,6 +173,15 @@ RUN curl --output "speedtest-cli" "https://raw.githubusercontent.com/sivel/speed
     && mv --verbose "speedtest-cli" "/opt/speedtest-cli" \
     && ln --verbose --symbolic "/opt/speedtest-cli" "/usr/local/bin/speedtest-cli"
 
+# Set Timezone
+ARG TIMEZONE="Asia/Taipei"
+RUN if [ "${TIMEZONE}" != "" ]; then \
+        export TIMEZONE_FILE="/usr/share/zoneinfo/${TIMEZONE}" \
+            && cat "${TIMEZONE_FILE}" > /dev/null \
+            && ln --verbose --symbolic --force "${TIMEZONE_FILE}" "/etc/localtime" \
+            && echo "${TIMEZONE}" > "/etc/timezone"; \
+    fi
+
 # Add a non-root user to prevent files being created with root permissions on host machine.
 USER root
 ARG USERNAME="user"
