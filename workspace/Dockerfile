@@ -134,6 +134,21 @@ RUN apt-get update \
     && rm --recursive --force /var/tmp/* \
     && rm --recursive --force /tmp/*
 
+# Install Golang with specific version.
+ARG GO_ROOT="/opt/go"
+ARG GO_VERSION="1.10.3"
+ARG GO_DOWNLOAD_BASENAME="go${GO_VERSION}.linux-amd64.tar.gz"
+ARG GO_DOWNLOAD_URL="https://storage.googleapis.com/golang/${GO_DOWNLOAD_BASENAME}"
+ENV GO_ROOT="${GO_ROOT}"
+ENV PATH="${GO_ROOT}/bin:${PATH}"
+RUN export GO_DIR="/opt/$(basename ${GO_DOWNLOAD_BASENAME} .tar.gz)" \
+    && cd "/tmp" \
+    && curl --output "${GO_DOWNLOAD_BASENAME}" "${GO_DOWNLOAD_URL}" \
+    && tar --gzip --extract --file "${GO_DOWNLOAD_BASENAME}" \
+    && mv --verbose "go" "${GO_DIR}" \
+    && ln --verbose --symbolic "${GO_DIR}" "${GO_ROOT}" \
+    && rm --verbose "${GO_DOWNLOAD_BASENAME}"
+
 # Add a non-root user to prevent files being created with root permissions on host machine.
 USER root
 ARG USERNAME="user"

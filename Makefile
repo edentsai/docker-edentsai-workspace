@@ -7,6 +7,8 @@ PASSWORD ?= secret
 PUID     ?= 1000
 PGID     ?= 1000
 
+GO_VERSION ?= 1.10.3
+
 .PHONY: all docker-build docker-run docker-push
 
 all: docker-build
@@ -18,6 +20,7 @@ docker-build:
 		--build-arg "PASSWORD=${PASSWORD}" \
 		--build-arg "PUID=${PUID}" \
 		--build-arg "PGID=${PGID}" \
+		--build-arg "GO_VERSION=${GO_VERSION}" \
 		./workspace
 
 docker-run:
