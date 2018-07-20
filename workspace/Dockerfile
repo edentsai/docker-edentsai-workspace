@@ -90,6 +90,14 @@ RUN apt-get update \
     && wget --quiet --output-document - "https://www.postgresql.org/media/keys/ACCC4CF8.asc" | apt-key add - \
     && apt-get update \
     && apt-get install --yes "postgresql-client-10" \
+    # Install Python 2.7
+    &&  apt-get install --yes \
+        "python-setuptools=20.7.*" \
+        "python2.7=2.7.*" \
+        "python2.7-minimal=2.7.*" \
+        "python-pip=8.1.*" \
+    && python -m pip install --upgrade "pip==10.0.*" \
+    && python -m pip install --upgrade "virtualenv==16.0.*" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
