@@ -149,6 +149,23 @@ RUN export GO_DIR="/opt/$(basename ${GO_DOWNLOAD_BASENAME} .tar.gz)" \
     && ln --verbose --symbolic "${GO_DIR}" "${GO_ROOT}" \
     && rm --verbose "${GO_DOWNLOAD_BASENAME}"
 
+# Install Google Cloud SDK
+ARG GCLOUD_ROOT="/opt/google-cloud-sdk"
+ENV PATH="${GCLOUD_ROOT}/bin:${PATH}"
+RUN export CLOUDSDK_INSTALL_DIR="$(dirname ${GCLOUD_ROOT})" \
+    && export CLOUDSDK_CORE_DISABLE_PROMPTS="1" \
+    && curl "https://sdk.cloud.google.com" | bash \
+    && ln --verbose --symbolic "${GCLOUD_ROOT}/completion.bash.inc" "/usr/share/bash-completion/completions/gcloud" \
+    # Install kubectl via Google Cloud SDK
+    && gcloud components update \
+    && gcloud components install --quiet "kubectl" \
+    # Install kubectx and kubens (https://github.com/ahmetb/kubectx)
+    && git clone "https://github.com/ahmetb/kubectx" "/opt/kubectx" \
+    && ln --verbose --symbolic "/opt/kubectx/kubectx" "/usr/local/bin/kubectx" \
+    && ln --verbose --symbolic "/opt/kubectx/completion/kubectx.bash" "/usr/share/bash-completion/completions/kubectx" \
+    && ln --verbose --symbolic "/opt/kubectx/kubens" "/usr/local/bin/kubens" \
+    && ln --verbose --symbolic "/opt/kubectx/completion/kubens.bash" "/usr/share/bash-completion/completions/kubens"
+
 # Add a non-root user to prevent files being created with root permissions on host machine.
 USER root
 ARG USERNAME="user"
