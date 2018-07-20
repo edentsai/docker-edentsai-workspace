@@ -98,6 +98,36 @@ RUN apt-get update \
         "python-pip=8.1.*" \
     && python -m pip install --upgrade "pip==10.0.*" \
     && python -m pip install --upgrade "virtualenv==16.0.*" \
+    # Install PHP 7.2 (https://launchpad.net/~ondrej/+archive/ubuntu/php)
+    && add-apt-repository --yes "ppa:ondrej/php" \
+    && apt-get update \
+    && apt-get install --yes \
+        --allow-downgrades \
+        --allow-remove-essential \
+        --allow-change-held-packages \
+        "php7.2-cli" \
+        "php7.2-common" \
+        "php7.2-curl" \
+        "php7.2-intl" \
+        "php7.2-json" \
+        "php7.2-xml" \
+        "php7.2-mbstring" \
+        "php7.2-mysql" \
+        "php7.2-pgsql" \
+        "php7.2-sqlite" \
+        "php7.2-sqlite3" \
+        "php7.2-zip" \
+        "php7.2-bcmath" \
+        "php7.2-memcached" \
+        "php7.2-gd" \
+        "php7.2-dev" \
+        "php-imagick" \
+        "php-xdebug" \
+    # Install PHP Composer
+    && curl "http://getcomposer.org/installer" | php \
+    && chmod +x "composer.phar" \
+    && mv --verbose "composer.phar" "/opt/composer" \
+    && ln --verbose --symbolic "/opt/copmoser" "/usr/local/bin/composer" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
