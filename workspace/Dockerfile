@@ -64,6 +64,10 @@ RUN apt-get update \
     && add-apt-repository --yes "ppa:jonathonf/vim" \
     && apt-get update \
     && apt-get install --yes "vim=2:8.1.*" \
+    # Install Git 2.18 (https://launchpad.net/~git-core/+archive/ubuntu/ppa)
+    && add-apt-repository --yes "ppa:git-core/ppa" \
+    && apt-get update \
+    && apt-get install --yes "git=1:2.18.*" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
