@@ -60,6 +60,10 @@ RUN apt-get update \
         "whois" \
         "xz-utils" \
         "zsh=5.1.*" \
+    # Install Vim 8.1 (https://launchpad.net/~jonathonf/+archive/ubuntu/vim)
+    && add-apt-repository --yes "ppa:jonathonf/vim" \
+    && apt-get update \
+    && apt-get install --yes "vim=2:8.1.*" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
