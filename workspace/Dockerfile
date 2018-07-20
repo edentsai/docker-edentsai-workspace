@@ -85,6 +85,11 @@ RUN apt-get update \
     && add-apt-repository --yes "ppa:chris-lea/redis-server" \
     && apt-get update \
     && apt-get install --yes "redis-tools=5:4.0.*" \
+    # Install PostgreSQL Client 10
+    && add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" \
+    && wget --quiet --output-document - "https://www.postgresql.org/media/keys/ACCC4CF8.asc" | apt-key add - \
+    && apt-get update \
+    && apt-get install --yes "postgresql-client-10" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
