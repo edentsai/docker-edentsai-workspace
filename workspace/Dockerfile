@@ -13,6 +13,59 @@ ENV LC_CTYPE="en_US.UTF-8"
 ENV LANG="en_US.UTF-8"
 ENV TERM="xterm"
 
+RUN apt-get update \
+    && apt-get install --yes \
+        "apt-transport-https" \
+        "bc" \
+        "build-essential" \
+        "ca-certificates" \
+        "curl" \
+        "dnsutils" \
+        "gcal" \
+        "gcc" \
+        "htop" \
+        "httping=2.4-*" \
+        "imagemagick=8:6.8.*" \
+        "iotop" \
+        "iputils-ping" \
+        "jq=1.5*" \
+        "less" \
+        "libcurl4-openssl-dev" \
+        "libedit-dev" \
+        "libffi-dev" \
+        "libsqlite3-dev" \
+        "libssl-dev" \
+        "libxml2-dev" \
+        "make" \
+        "most" \
+        "mtr" \
+        "mysql-client-5.7" \
+        "mytop" \
+        "netcat" \
+        "pkg-config" \
+        "rsync" \
+        "screen" \
+        "silversearcher-ag" \
+        "software-properties-common" \
+        "sqlite3" \
+        "sshpass" \
+        "sudo" \
+        "sysstat" \
+        "tar" \
+        "telnet" \
+        "tree" \
+        "tzdata" \
+        "unzip" \
+        "wget" \
+        "whois" \
+        "xz-utils" \
+        "zsh=5.1.*" \
+    # Clean unnecessary files
+    && apt-get clean \
+    && rm --recursive --force /var/lib/apt/lists/* \
+    && rm --recursive --force /var/tmp/* \
+    && rm --recursive --force /tmp/*
+
 # Add a non-root user to prevent files being created with root permissions on host machine.
 USER root
 ARG USERNAME="user"
