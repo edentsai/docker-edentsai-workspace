@@ -166,6 +166,13 @@ RUN export CLOUDSDK_INSTALL_DIR="$(dirname ${GCLOUD_ROOT})" \
     && ln --verbose --symbolic "/opt/kubectx/kubens" "/usr/local/bin/kubens" \
     && ln --verbose --symbolic "/opt/kubectx/completion/kubens.bash" "/usr/share/bash-completion/completions/kubens"
 
+# Install speedtest-cli 2.0.0 (https://raw.githubusercontent.com/sivel/speedtest-cli)
+ARG SPEEDTEST_CLI_VERSION=2.0.2
+RUN curl --output "speedtest-cli" "https://raw.githubusercontent.com/sivel/speedtest-cli/${SPEEDTEST_CLI_VERSION}/speedtest.py" \
+    && chmod +x "speedtest-cli" \
+    && mv --verbose "speedtest-cli" "/opt/speedtest-cli" \
+    && ln --verbose --symbolic "/opt/speedtest-cli" "/usr/local/bin/speedtest-cli"
+
 # Add a non-root user to prevent files being created with root permissions on host machine.
 USER root
 ARG USERNAME="user"
