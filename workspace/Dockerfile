@@ -77,6 +77,10 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install --yes "tmux-next=2.7~*" \
     && ln --verbose --symbolic "/usr/bin/tmux-next" "/usr/local/bin/tmux" \
+    # Install Mosh 1.3 (https://launchpad.net/~keithw/+archive/ubuntu/mosh)
+    && add-apt-repository --yes "ppa:keithw/mosh" \
+    && apt-get update \
+    && apt-get install --yes "mosh=1.3.*" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
