@@ -72,6 +72,11 @@ RUN apt-get update \
     && add-apt-repository --yes "ppa:aguignard/ppa" \
     && apt-get update \
     && apt-get install --yes "tig=2.2-*" \
+    # Install Tmux-next 2.7 (https://launchpad.net/~pi-rho/+archive/ubuntu/dev)
+    && add-apt-repository --yes "ppa:pi-rho/dev" \
+    && apt-get update \
+    && apt-get install --yes "tmux-next=2.7~*" \
+    && ln --verbose --symbolic "/usr/bin/tmux-next" "/usr/local/bin/tmux" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
