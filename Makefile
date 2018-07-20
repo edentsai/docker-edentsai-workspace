@@ -10,7 +10,7 @@ PGID     ?= 1000
 
 GO_VERSION ?= 1.10.3
 
-.PHONY: all docker-build docker-run docker-push
+.PHONY: all docker-build docker-run docker-push docker-clean
 
 all: docker-build
 
@@ -37,3 +37,6 @@ ifeq ("$(IMAGE_EXISTS)", "0")
 	exit 1
 endif
 	docker push "$(IMAGE_NAME):$(IMAGE_VERSION)"
+
+docker-clean:
+	docker image prune --force
