@@ -81,6 +81,10 @@ RUN apt-get update \
     && add-apt-repository --yes "ppa:keithw/mosh" \
     && apt-get update \
     && apt-get install --yes "mosh=1.3.*" \
+    # Install Redis tools 4.0 (https://launchpad.net/~chris-lea/+archive/ubuntu/redis-server)
+    && add-apt-repository --yes "ppa:chris-lea/redis-server" \
+    && apt-get update \
+    && apt-get install --yes "redis-tools=5:4.0.*" \
     # Clean unnecessary files
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/* \
