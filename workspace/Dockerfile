@@ -182,6 +182,10 @@ RUN if [ "${TIMEZONE}" != "" ]; then \
             && echo "${TIMEZONE}" > "/etc/timezone"; \
     fi
 
+# Setup configurations
+COPY etc/bash.bashrc /etc/bash.bashrc
+COPY etc/bash_completion /usr/share/bash-completion/bash_completion
+
 # Add a non-root user to prevent files being created with root permissions on host machine.
 USER root
 ARG USERNAME="user"
