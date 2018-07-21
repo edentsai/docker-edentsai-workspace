@@ -12,3 +12,6 @@ jobs:
     script:
     - docker version
     - make docker-build
+
+notifications:
+  email: false
