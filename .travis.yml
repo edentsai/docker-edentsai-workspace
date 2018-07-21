@@ -4,11 +4,18 @@ dist: trusty
 services:
 - docker
 
+env:
+    - IMAGE_VERSION=CI_TEST
+
 jobs:
   include:
-  - stage: Build Image
-    env:
-    - IMAGE_VERSION=CI_TEST
+  - stage: Build Images
     script:
     - docker version
     - make docker-build
+  - script:
+    - docker version
+    - docker build --force-rm --tag "edentsai/edentsai-workspace:mysql-${IMAGE_VERSION}" ./mysql
+
+notifications:
+  email: false
