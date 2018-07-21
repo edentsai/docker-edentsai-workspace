@@ -1,0 +1,28 @@
+if [ -d /etc/bash_completion.d ]; then
+	for filepath in /etc/bash_completion.d/*; do
+		if [ "$(basename $filepath)" == "insserv" ]; then
+			continue
+		fi
+
+		if [ -f "$filepath" ]; then
+			source "$filepath"
+		fi
+	done
+fi
+
+if [ -d /usr/share/bash-completion/completions ]; then
+	for filepath in /usr/share/bash-completion/completions/*; do
+		if [ "$(basename $filepath)" == "debconf" ]; then
+			continue
+		fi
+
+		if [ "$(basename $filepath)" == "debconf-show" ]; then
+			continue
+		fi
+
+		if [ -f "$filepath" ]; then
+			source "$filepath"
+		fi
+	done
+fi
+
