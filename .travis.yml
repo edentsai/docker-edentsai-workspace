@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+
+services:
+- docker
+
+jobs:
+  include:
+  - stage: Build Image
+    env:
+    - IMAGE_VERSION=CI_TEST
+    script:
+    - docker version
+    - make docker-build
